@@ -1,0 +1,48 @@
+.menu{
+   
+  width:10%;
+  height: 95vh!important;
+    float: left;
+    text-align: center;
+}
+
+.conteudo{
+    justify-content: center!important;
+    text-align: center!important;
+    align-items: center!important;
+}
+.A{
+    margin: 20px!important;
+}
+.b{
+    justify-content: center!important;
+    text-align: center!important;
+    align-items: center!important;
+    margin-top: 0 auto!important;
+    width: 50%!important;
+}
+.cont{
+    
+    height: 600px!important;
+ 
+   width: 90%;
+    float: right;
+    
+
+    
+}
+
+.foot{
+  
+    width: 100%!important;
+    height: 40px!important;
+    margin-top: 70px!important;
+}
+.header{
+   
+    box-shadow: 2px 3px #888888;
+}
+
+.drop{
+    text-decoration: none!important;
+}

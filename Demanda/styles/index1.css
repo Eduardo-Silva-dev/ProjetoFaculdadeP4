@@ -1,0 +1,117 @@
+
+  
+  .conteudo{
+      justify-content: center!important;
+      text-align: center!important;
+      align-items: center!important;
+  }
+  .A{
+      margin: 20px!important;
+  }
+  .b{
+      justify-content: center!important;
+      text-align: center!important;
+      align-items: center!important;
+      margin-top: 0 auto!important;
+      width: 50%!important;
+  }
+  .contP{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+  }
+  .cont{
+     
+      height: 700px!important;
+      width: 90%;
+
+  }
+  
+  .foot{
+  width: calc(100%-130px)!important;
+ 
+  }
+  .header{
+      box-shadow: 2px 3px #888888;
+
+  }
+  .pesquisar{
+  
+      float: right!important;
+  }
+@media screen and (max-widht:578px){
+    .contP{
+        width: 30%!important;
+        
+    }
+}
+ 
+
+
+  @media screen and (max-width: 800px){
+.sumir{
+    display: none;
+}
+    .navegation{
+        width: 30px!important;
+        
+    }
+    .submenu{
+    width: 30px!important;
+    }
+    .navegMenu a{
+        width:30px!important;
+    }
+
+    .navegMenu a:hover{
+      
+        background-color:red;
+    }
+
+  }
+
+  .navegation{
+      width: 105px;
+     height: 100vh;
+     float: left;
+
+  }
+  .navegMenu, .submenu{
+      list-style: nome;
+      padding: 0;
+      margin: 0;
+  }
+  .navegMenu a{
+    width: 105px;
+     text-decoration: none;
+      display: block;
+      padding:10px;
+      color: white;
+  }
+  .navegMenu a:hover{
+      
+      background-color:red;
+  }
+  .navegMenu li:hover .submenu{
+      display:block;
+      max-height: 100px;
+  }
+  .submenu a{
+      background-color:red;
+      width: 110px;
+      
+  }
+  .submenu a:hover{
+      background-color: red;
+      width: 105px;
+  }
+  .submenu{
+      overflow: hidden;
+      max-height:0;
+      /*-webkit-transition: all 0.5s ease-out;*/
+    border-radius: 8px;
+  }
+  /*login imagem*/
+  
