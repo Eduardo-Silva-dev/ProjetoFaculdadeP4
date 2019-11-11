@@ -3,6 +3,8 @@ include "conexao/conexao.php";
 include 'repository/conDemandas.php';
 include 'repository/conMaterial.php';
 include 'repository/conUsuario.php';
+require 'repository/validacaoLogin.php';
+validarUser();
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -12,7 +14,6 @@ include 'repository/conUsuario.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Demandas</title>
-
   <style>
     #sub a {
       height: 30px;
@@ -24,20 +25,9 @@ include 'repository/conUsuario.php';
       width: 105px;
     }
   </style>
-  <?php
-  /* session_start();
-  if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
-    unset($_SESSION['login']);
-    unset($_SESSION['senha']);
-    header('location:index.php');
-  }
-
-  $logado = $_SESSION['login'];*/
-  ?>
   <link rel="stylesheet" href="css\bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <link rel="stylesheet" href="styles\index1.css">
   <link rel="stylesheet" href="styles\modal.css">
 </head>
@@ -50,21 +40,16 @@ include 'repository/conUsuario.php';
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
-
       </ul>
-      <?php
-      //  echo "$logado ";
+      <?php //$_SESSION['logado'];
       ?>
       <form class="form-inline my-2 my-lg-0">
         <a href="login.php"> <i class="fa fa-external-link"></i></a>
       </form>
     </div>
   </nav>
-
-
   <div class="row">
     <div class="men col col-sm-2">
       <nav class="navegation bg-primary">
@@ -98,34 +83,30 @@ include 'repository/conUsuario.php';
                 <?php $user = selectUser() ?>
                 <label for="inputEstado">Nome</label>
                 <select class="form-control" id="nome" name="nome">
-                <?php while($linha1 = $user->fetch_assoc()){?>
-                <?php echo '<option value="'. $linha1['id'].'">'. $linha1['nome']." ". $linha1['sobrenome']. '</option>';?> <?php } ?>
+                  <?php while ($linha1 = $user->fetch_assoc()) { ?>
+                    <?php echo '<option value="' . $linha1['id'] . '">' . $linha1['nome'] . " " . $linha1['sobrenome'] . '</option>'; ?> <?php } ?>
                 </select>
-
                 <label for="inputEstado">Setor</label>
                 <select class="form-control" id="setor" name="setor">
-                <?php $user = selectUser() ?>
-                <?php while($linha = $user->fetch_assoc()){?>
-                <?php echo '<option value="'. $linha['id'].'">'. $linha['setor']. '</option>';?> <?php } ?>
+                  <?php $user = selectUser() ?>
+                  <?php while ($linha = $user->fetch_assoc()) { ?>
+                    <?php echo '<option value="' . $linha['id'] . '">' . $linha['setor'] . '</option>'; ?> <?php } ?>
                 </select>
               </div>
               <div class="form-group col-md-4">
                 <label for="inputEstado">Quantidade</label>
                 <input type="number" class="form-control" id="quantidade" name="quantidade">
-
                 <label for="inputEstado">Produto</label>
                 <select class="form-control" id="produto" name="produto">
-                <?php $user = selectMat() ?>
-                <?php while($linha = $user->fetch_assoc()){?>
-                <?php echo '<option>'. $linha['nomedoproduto']. '</option>';?> <?php } ?>
+                  <?php $user = selectMat() ?>
+                  <?php while ($linha = $user->fetch_assoc()) { ?>
+                    <?php echo '<option>' . $linha['nomedoproduto'] . '</option>'; ?> <?php } ?>
                 </select>
-
               </div>
               <div class="form-group col-md-4">
                 <label for="observação">Observação</label>
                 <input type="area" class="form-control" name="observacao" id="obs" style="height:150px;" placeholder="observação do produto....">
               </div>
-
               <hr>
               <div class="container">
                 <button type="submit" class="btn btn-primary" name="confirmar" <?php inserirDem(); ?>>cadastrar</button>

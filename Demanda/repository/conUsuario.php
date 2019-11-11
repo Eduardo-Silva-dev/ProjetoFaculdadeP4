@@ -39,6 +39,8 @@ function inserirUser(){
             $_SESSION['cpf'],
             $_SESSION['setor'],
             $_SESSION['niveldeacesso']);
+            $var = "<script>href:usuario.php</script>";
+            echo $var;
         } else {
             $erro[] = $confirmar;
             echo "<script> alert('$erro') </srcipt>";
@@ -51,7 +53,7 @@ function mostraUser()
 {
     include '../conexao/conexao.php';
 
-    $sql_select = "SELECT * FROM tb_usuario";
+    $sql_select = "SELECT * FROM tb_usuario ORDER BY nome ASC";
     $coletar = $con->query($sql_select) or die($con->error);
     return $coletar;
 
@@ -85,12 +87,12 @@ function alterarUser()
 
             if ($confimar) {
                 unset($_SESSION['nome'],
-                $_SESSION[sobrenome],
-                $_SESSION[email],
-                $_SESSION[senha],
-                $_SESSION[cpf],
-                $_SESSION[setor],
-                $_SESSION[niveldeacesso]);
+                $_SESSION['sobrenome'],
+                $_SESSION['email'],
+                $_SESSION['senha'],
+                $_SESSION['cpf'],
+                $_SESSION['setor'],
+                $_SESSION['niveldeacesso']);
             } else {
                 $erro[] = $confirmar;
                 echo "<script> alert('$erro') </srcipt>";
@@ -116,25 +118,23 @@ function alterarUser()
     mysqli_close($con);
 }
 
-function deleteUser()
-{
+function deleteUser($linha)
+{  
     include '../conexao/conexao.php';
-    $usu_cpf = intval($_GET['cpf']);
+    $use_cpf = intval($linha);
 
-    $sql = "DELETE FROM tb_usuario WHERE cpf = '$usu_cpf'";
+    $sql = "DELETE FROM tb_usuario WHERE cpf = '$use_cpf'";
     $resposta = $con->query($sql) or die($con->errno);
     if ($resposta) { 
-        echo "<script> 
-        alert('O usuario foi deletado com sucesso!')
-        location.href='index.php';
-        </script>" ;
+        echo "<script> window.alert('O usuario foi deletado com sucesso!') </script>" ;
+        
     } else { 
-        echo "<script> 
-        alert('Não foi possivel deletar o Usuario!')
-        location.href='index.php';
-        </script>" ; 
+        $j =  "<script> window.alert('Não foi possivel deletar o Usuario!')</script>" ; 
+        echo $j;
     }
+    
 }
+
 
 function selectUser(){
     include 'conexao/conexao.php';

@@ -1,3 +1,4 @@
+<?php require 'repository/validacaoLogin.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,8 +13,6 @@
 </head>
 
 <body class="bg-light">
-
-
   <div class="principal container">
     <div class="card card-header bg-light shadow-lg p-3 mb-5 bg-white rounded">
       <h3 style="text-align:center;">Sistema de Demandas</h3>
@@ -22,19 +21,14 @@
         <div clas="col">
           <div class="container">
             <img src="imagens\capa1.jpg" alt="Imagem responsiva" class="capa  img-fluid">
-
-
-
           </div>
         </div>
         <div clas="col">
           <div class="resp card card-body bg-white">
-
             <form method="POST" action="index.php">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" autocomplete="off" placeholder="Seu email" name="login">
-                <small id="email" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <input type="text" class="form-control" id="email" autocomplete="off" placeholder="Seu email" name="email">
               </div>
               <div class="form-group">
                 <label for="psw">Senha</label>
@@ -44,16 +38,13 @@
                 <input type="checkbox" class="form-check-input" id="lembrar">
                 <label class="form-check-label" for="lembrar">lembrar senha</label>
               </div>
-              <input id="" class="btn btn-primary" type="submit" value="entrar">
-
+              <input id="" class="btn btn-primary" type="submit" value="entrar" name="confirmar" <?php validarUser(); ?>>
             </form>
           </div>
-
         </div>
         <div>
         </div>
       </div>
-
     </div>
 </body>
 

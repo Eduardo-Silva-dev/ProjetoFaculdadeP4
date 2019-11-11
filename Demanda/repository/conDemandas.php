@@ -39,4 +39,11 @@ function inserirDem(){
     }
 }
 
+function selectDem(){
+    include '../conexao/conexao.php';
+    $sql = "SELECT id,nomeuser,setor,produto,quantidade,observacao,DATE_FORMAT(datadesaida, '%d/%m/%Y') AS datadesaida FROM tb_demanda  ORDER BY id ASC";
+    $resposta = $con->query($sql) or die ($conn->errno);
+    return $resposta;
+    mysqli_close($con);
+}
 ?>
