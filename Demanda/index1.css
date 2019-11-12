@@ -1,0 +1,125 @@
+
+  
+  .conteudo{
+      justify-content: center!important;
+      text-align: center!important;
+      align-items: center!important;
+  }
+  .A{
+      margin: 20px!important;
+  }
+  .b{
+      justify-content: center!important;
+      text-align: center!important;
+      align-items: center!important;
+      margin-top: 0 auto!important;
+      width: 50%!important;
+  }
+  .cont{
+      height: 600px!important;
+     width: 90%;
+      float: right;    
+  }
+  
+  .foot{
+  width: calc(100%-130px)!important;
+ 
+  }
+  .header{
+      box-shadow: 2px 3px #888888;
+
+  }
+  .pesquisar{
+  
+      float: right!important;
+  }
+
+  /*menu*/
+
+  .navegation{
+      width: 100px;
+     height: 100vh;
+     float: left;
+
+  }
+  .navegMenu, .submenu{
+      list-style: nome;
+      padding: 0;
+      margin: 0;
+  }
+  .navegMenu a{
+     text-decoration: none;
+      display: block;
+      padding:10px;
+      background-color: var(--dark);
+      color: white;
+  }
+  .navegMenu a:hover{
+      background-color: #666;
+  }
+  .navegMenu li:hover .submenu{
+      display:block;
+      max-height: 100px;
+  }
+  .submenu a{
+      background-color:#999 ;
+      width: 130px;
+  }
+  .submenu a:hover{
+      background-color: #666;
+  }
+  .submenu{
+      overflow: hidden;
+      max-height:0;
+      -webkit-transition: all 0.5s ease-out;
+    border-radius: 8px;
+  }
+  /*login imagem*/
+  .log{
+     background-color: aliceblue;
+      width: 40px;
+      height: 40px;
+      margin-left: 1030px;
+      border-radius: 20px;
+  }
+  .log:hover{
+      background-color: gray;
+     
+  }
+
+  .sublogin, .submenu{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  .sublogin a{
+      text-decoration: none;
+      display:block;
+      
+      border-radius: 20px;
+      padding: 10px;
+  }
+  .sublogin a:hover{
+      width: 40px;
+      height: 40px;
+  }
+  .sublogin li:hover .submenu{
+      display:block;
+      max-height: 200px;
+  }
+  .submenu{
+      width: 100px;
+  }
+  .submenu a{
+      background-color:#999;
+  }
+  .submenu a:hover{
+background-color: #666;}
+
+.submenu{
+    overflow: hidden;
+    max-height: 0;
+    -webkit-transition: all 0.5s ease-out;
+    
+}
