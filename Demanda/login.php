@@ -1,4 +1,4 @@
-<?php require 'repository/validacaoLogin.php'; ?>
+<?php include 'repository/validacaoLogin.php';?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -25,10 +25,10 @@
         </div>
         <div clas="col">
           <div class="resp card card-body bg-white">
-            <form method="POST" action="index.php">
+            <form method="POST" action="login.php">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" autocomplete="off" placeholder="Seu email" name="email">
+                <input type="text" class="form-control" id="email" autocomplete="on" placeholder="Seu email" name="email">
               </div>
               <div class="form-group">
                 <label for="psw">Senha</label>
@@ -38,7 +38,8 @@
                 <input type="checkbox" class="form-check-input" id="lembrar">
                 <label class="form-check-label" for="lembrar">lembrar senha</label>
               </div>
-              <input id="" class="btn btn-primary" type="submit" value="entrar" name="confirmar" <?php validarUser(); ?>>
+              <a name="recuperarSenha" href="recuperarSenha.php" class="btn btn-success"  type="submit" >Esuqeci minha Senha</a>
+              <input id="" class="btn btn-primary" type="submit" value="entrar" name="confirmar"<?php validarUser(); ?>>
             </form>
           </div>
         </div>

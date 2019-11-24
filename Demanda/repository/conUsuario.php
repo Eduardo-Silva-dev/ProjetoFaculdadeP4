@@ -1,18 +1,15 @@
 <?php
 
-function inserirUser(){
-    include 'conexao/conexao.php';
+function inserirUser()
+{
+    require 'conexao/conexao.php';
     if (isset($_POST['confirmar'])) {
-
-        if (!isset($_SESSION)){
-            session_start();}
 
         foreach ($_POST as $chave => $valor)
             $_SESSION[$chave] = mysqli_real_escape_string($con, $valor);
 
+        $senha = sha1($_SESSION['senha']);
 
-            $senha = sha1($_SESSION['senha']);
-        
         $sql = "INSERT INTO tb_usuario (
             nome,
             sobrenome, 
@@ -32,15 +29,7 @@ function inserirUser(){
             )";
         $confimar = $con->query($sql) or die($con->error);
         if ($confimar) {
-            unset($_SESSION['nome'],
-            $_SESSION['sobrenome'],
-            $_SESSION['email'],
-            $_SESSION['senha'],
-            $_SESSION['cpf'],
-            $_SESSION['setor'],
-            $_SESSION['niveldeacesso']);
-            $var = "<script>href:usuario.php</script>";
-            echo $var;
+            unset($_SESSION);
         } else {
             $erro[] = $confirmar;
             echo "<script> alert('$erro') </srcipt>";
@@ -51,96 +40,144 @@ function inserirUser(){
 
 function mostraUser()
 {
-    include '../conexao/conexao.php';
-
+    require '../conexao/conexao.php';
     $sql_select = "SELECT * FROM tb_usuario ORDER BY nome ASC";
     $coletar = $con->query($sql_select) or die($con->error);
     return $coletar;
-
     mysqli_close($con);
+}
+function mostraUse()
+{
+    require 'conexao/conexao.php';
+    $sql_select = "SELECT * FROM tb_usuario ORDER BY nome ASC";
+    $coletar = $con->query($sql_select) or die($con->error);
+    return $coletar;
+    mysqli_close($con);
+}
+
+function userSelect()
+{
+    require '../conexao/conexao.php';
+    if (isset($_GET['id'])) {
+        $usu_cpf = intval($_GET['id']);
+        $sql_cpf = "SELECT * FROM tb_usuario WHERE id = '$usu_cpf'";
+        $sql_query = $con->query($sql_cpf) or die($con->errno);
+        $linha = $sql_query->fetch_assoc();
+        return $linha;
+    }
+}
+
+function useSelect()
+{
+    require '../conexao/conexao.php';
+    if (isset($_GET['id'])) {
+        session_start();
+        $usu_id = intval($_GET['id']);
+        if ($usu_id == 0) {
+            $_SESSION['cpf'] = "---";
+            $_SESSION['setor'] = "---";
+            $_SESSION['useid'] = "---";
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "");
+        } else {
+            $sql_id = "SELECT * FROM tb_usuario WHERE id = '$usu_id'";
+            $sql_query = $con->query($sql_id) or die($con->errno);
+            $linha = $sql_query->fetch_assoc();
+            if ($linha) {
+                $_SESSION['cpf'] = $linha['cpf'];
+                $_SESSION['setor'] = $linha['setor'];
+                $_SESSION['useid'] = $linha['id'];
+                header("Location: " . $_SERVER['HTTP_REFERER'] . "");
+            } else {
+                echo "$con->errno";
+            }
+        }
+    }
 }
 
 function alterarUser()
 {
-    if (!isset($_GET['usuario'])) { } else {
 
-        $usu_cpf = intval($_GET['usuario']);
-        include '../conexao/conexao.php';
-        if (isset($_POST['confirmar'])) {
-            if (!isset($_SESSION))
-                session_start();
+    require '../conexao/conexao.php';
+    if (isset($_GET['id'])) {
 
-            foreach ($_POST as $chave => $valor)
-                $_SESSION[$chave] = mysqli_real_escape_string($con, $valor);
+        $usu_id = intval($_GET['id']);
 
-            $sql = "UPDATE tb_usuario SET
+        if (!isset($_SESSION))
+            session_start();
+
+        foreach ($_POST as $chave => $valor)
+            $_SESSION[$chave] = mysqli_real_escape_string($con, $valor);
+
+        $senha = sha1($_SESSION['senha']);
+        $cpf = intval($_SESSION['cpf']);
+        $niveldeacesso = intval($_SESSION['niveldeacesso']);
+
+        $sql = "UPDATE tb_usuario SET
             nome = '$_SESSION[nome]',
             sobrenome = '$_SESSION[sobrenome]',
             email = '$_SESSION[email]',
-            senha = '$_SESSION[senha]',
-            cpf ='$_SESSION[cpf]',
+            senha = '$senha',
+            cpf ='$cpf',
             setor ='$_SESSION[setor]',
-            niveldeacesso) = '$_SESSION[niveldeacesso]'
-            WHERE cpf = '$usu_cpf'";
+            niveldeacesso = '$niveldeacesso'
+            WHERE id = '$usu_id'";
 
-            $confimar = $con->query($sql) or die($con->error);
+        $confimar = $con->query($sql) or die($con->error);
 
-            if ($confimar) {
-                unset($_SESSION['nome'],
-                $_SESSION['sobrenome'],
-                $_SESSION['email'],
-                $_SESSION['senha'],
-                $_SESSION['cpf'],
-                $_SESSION['setor'],
-                $_SESSION['niveldeacesso']);
-            } else {
-                $erro[] = $confirmar;
-                echo "<script> alert('$erro') </srcipt>";
-            }
-            mysqli_close($con);
-        } else {
-            $sql_cpf = "SELECT * FROM tb_usuario WHERE cpf = 'usu_cpf'";
-            $sql_query = $con->query($sql_cpf) or die($con->errno);
-            $linha = $sql_query->fetch_assoc();
-
-            if (!isset($_SESSION))
-                session_start();
-
-            $_SESSION[nome] = $linha['nome'];
-            $_SESSION[sobrenome] = $linha['sobrenome'];
-            $_SESSION[email] = $linha['email'];
-            $_SESSION[email] = $linha['senha'];
-            $_SESSION[cpf] = $linha['cpf'];
-            $_SESSION[setor] = $linha['setor'];
-            $_SESSION[niveldeacesso] = $linha['niveldeacesso'];
-        }
+        if ($confimar) {
+            unset($_SESSION[nome],
+            $_SESSION[sobrenome],
+            $_SESSION[email],
+            $_SESSION[senha],
+            $_SESSION[cpf],
+            $_SESSION[setor],
+            $_SESSION[niveldeacesso]);
+            header("Location: ../relatorios/usuarios.php");
+        } else { }
+        mysqli_close($con);
     }
-    mysqli_close($con);
 }
 
-function deleteUser($linha)
-{  
-    include '../conexao/conexao.php';
-    $use_cpf = intval($linha);
 
-    $sql = "DELETE FROM tb_usuario WHERE cpf = '$use_cpf'";
+function deleteUser()
+{
+    require '../conexao/conexao.php';
+    $use_cpf = intval($_GET['id']);
+    echo $use_cpf;
+    $sql = "DELETE FROM tb_usuario WHERE id = '$use_cpf'";
     $resposta = $con->query($sql) or die($con->errno);
-    if ($resposta) { 
-        echo "<script> window.alert('O usuario foi deletado com sucesso!') </script>" ;
-        
-    } else { 
-        $j =  "<script> window.alert('Não foi possivel deletar o Usuario!')</script>" ; 
-        echo $j;
+    if ($resposta) {
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "");
+    } else {
+        echo "$con->errno";
     }
-    
 }
 
-
-function selectUser(){
-    include 'conexao/conexao.php';
-    $sql = "SELECT id,nome,sobrenome,setor FROM tb_usuario ORDER BY nome ASC";
-    $resposta = $con->query($sql) or die ($conn->errno);
+function selectUser()
+{
+    require 'conexao/conexao.php';
+    $sql = "SELECT id,nome FROM tb_usuario ORDER BY nome ASC";
+    $resposta = $con->query($sql) or die($conn->errno);
     return $resposta;
     mysqli_close($con);
 }
-?>
+
+if (isset($_POST['alterarUser'])) {
+    alterarUser();
+}
+
+if (isset($_GET['deleteUser'])) {
+    deleteUser();
+}
+if (isset($_GET['preencherUser'])) {
+    useSelect();
+}
+function paginaUser()
+{
+    require '../conexao/conexao.php';
+    $itens_por_pagina = 2;
+    $sql = "SELECT * FROM tb_usuario LIMIT $itens_por_pagina ";
+    $res = $con->query($sql) or die($con->errno);
+    return $res;
+    header("Location: " . $_SERVER['HTTP_REFERER'] . "");
+}

@@ -92,26 +92,26 @@
   }
   .navegMenu a:hover{
       
-      background-color:red;
+      background-color:gray;
   }
   .navegMenu li:hover .submenu{
       display:block;
       max-height: 100px;
   }
   .submenu a{
-      background-color:red;
+      background-color:gray;
       width: 110px;
       
   }
   .submenu a:hover{
-      background-color: red;
+      background-color: gray;
       width: 105px;
   }
   .submenu{
       overflow: hidden;
       max-height:0;
-      /*-webkit-transition: all 0.5s ease-out;*/
+   
     border-radius: 8px;
   }
-  /*login imagem*/
+ 
   

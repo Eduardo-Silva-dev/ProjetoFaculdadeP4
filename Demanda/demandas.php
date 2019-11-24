@@ -1,192 +1,222 @@
+<?php
+require_once 'repository/conDemandas.php';
+require_once 'repository/conMaterial.php';
+require_once 'repository/conUsuario.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>usuario</title>
+  <title>Demandas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="styles\menu.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="styles\relatorioUsu.css" media="screen" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="styles\menu.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="styles\relatorioUsu.css" media="screen" />
 </head>
-<body  onload="document.querySelector('.modalP').style.display='none'">
-<div class="row">
-<div class="col col-sm-1 bg-primary">
 
+<body onload="document.querySelector('.modalP').style.display='none'">
+  <div class="row">
+    <div class="col col-sm-1 bg-primary">
       <nav class="main-menu">
-        
-            <ul>
-          
-                <li>
-                    <a href="index.php">
-                        <i class="fa fa-home fa-2x"></i>
-                        <span class="nav-text">
-                            Dashboard
-                        </span>
-                    </a>
-                  
-                </li>
-                <li class="has-subnav">
-                    <a href="usuario.php">
-                        <i class="fa fa-laptop fa-2x"></i>
-                        <span class="nav-text">
-                            cadastro de Usuarios
-                        </span>
-                    </a>
-                    
-                </li>
-                <li class="has-subnav">
-                    <a href="material.php">
-                       <i class="fa fa-list fa-2x"></i>
-                        <span class="nav-text">
-                           Cadastro de Produtos
-                        </span>
-                    </a>
-                    
-                </li>
-                <li class="has-subnav">
-                    <a href="demandas.php">
-                       <i class="fa fa-folder-open fa-2x"></i>
-                        <span class="nav-text">
-                            Demandas
-                        </span>
-                    </a>
-                   
-                </li>
-                <li>
-                    <a href="../relatorios/usuarios.php">
-                        <i class="fa fa-bar-chart-o fa-2x"></i>
-                        <span class="nav-text">
-                            Relatorio de Usuarios
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../relatorios/produtos.php">
-                        <i class="fa fa-font fa-2x"></i>
-                        <span class="nav-text">
-                           Relatorio de Produtos
-                        </span>
-                    </a>
-                </li>
-                <li>
-                   <a href="../relatorios/demanda.php">
-                       <i class="fa fa-table fa-2x"></i>
-                        <span class="nav-text">
-                            Relatorio de Demandas
-                        </span>
-                    </a>
-                </li>
-                <li>
-                   <a href="../confi/solicitacao.php">
-                        <i class="fa fa-map-marker fa-2x"></i>
-                        <span class="nav-text">
-                            Solicitações
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../confi/suporte.php">
-                       <i class="fa fa-info fa-2x"></i>
-                        <span class="nav-text">
-                           Suporte
-                        </span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="logout">
-                <li>
-                   <a href="../login.php">
-                         <i class="fa fa-power-off fa-2x"></i>
-                        <span class="nav-text">
-                            Logout
-                        </span>
-                    </a>
-                </li>  
-            </ul>
+        <ul>
+          <li>
+            <a href="index.php">
+              <i class="fa fa-home fa-2x"></i>
+              <span class="nav-text">
+                Dashboard
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="usuario.php">
+              <i class="fa fa-laptop fa-2x"></i>
+              <span class="nav-text">
+                cadastro de Usuarios
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="material.php">
+              <i class="fa fa-list fa-2x"></i>
+              <span class="nav-text">
+                Cadastro de Produtos
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="demandas.php">
+              <i class="fa fa-folder-open fa-2x"></i>
+              <span class="nav-text">
+                Demandas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="relatorios/usuarios.php">
+              <i class="fa fa-bar-chart-o fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Usuarios
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="relatorios/produtos.php">
+              <i class="fa fa-font fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Produtos
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="relatorios/demanda.php">
+              <i class="fa fa-table fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Demandas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="confi/solicitacao.php">
+              <i class="fa fa-map-marker fa-2x"></i>
+              <span class="nav-text">
+                Solicitações
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="confi/suporte.php">
+              <i class="fa fa-info fa-2x"></i>
+              <span class="nav-text">
+                Suporte
+              </span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout">
+          <li>
+            <a href="login.php">
+              <i class="fa fa-power-off fa-2x"></i>
+              <span class="nav-text">
+                Logout
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="col col-sm-11 bg-primary">
+      <div class="mainp container shadow p-3 mb-5 bg-primary rounded">
+        <div class="cabeP container">
+          <div class="cabecalho card card-body shadow p-3 mb-5 bg-white rounded">
+            Demandas
+          </div>
+        </div>
+        <div class="corpo card card-body">
+          <form method="POST" action="repository/conDemandas.php">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label name="produto" for="produto">Produto</label>
+                <select name="produto" id="btnproduto" onchange="(this.value)" class="form-control">
+                  <option selected>Escolher...</option>
+                  <?php $mat = selectMat();
+                  while ($linhas = $mat->fetch_assoc()) {
+                    if ($linhas['id'] == $_SESSION['matid']) {
+                      echo ' <option name="produto" selected id="opcao" value =' . $linhas['id'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
+                     }else{
+                      echo ' <option name="produto" id="opcao" value =' . $linhas['id'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
+                    }
+                 } ?>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="nomeUser">Nome</label>
+                <select name="nomeUser" id="btnusuario" class="form-control">
+                  <option selected>Escolher...</option>
+                  <?php $user = mostraUse();
+                  while ($linha = $user->fetch_assoc()) {
+                    if ($linha['id'] == $_SESSION['useid']) {
+                    echo ' <option name="nomeUser" selected value =' . $linha['id'] . '>' . $linha['nome'] . ' </option> ';
+                  }else{
+                    echo ' <option name="nomeUser" value =' . $linha['id'] . '>' . $linha['nome'] . ' </option> ';
+                  }
+                  }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label name="setor" for="setor">Setor</label>
+                <input type="text" class="form-control" id="setor" placeholder="Setor" name="setor" value="<?php if (!$_SESSION['setor'] == "") {echo $_SESSION['setor']; $_SESSION['setor']== "---";} ?>">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="codigo">Codigo</label>
+                <input type="text" class="form-control" id="codigo" placeholder="Codigo" value="<?php if (!$_SESSION['codigo'] == "") {
+                                                                                                  echo $_SESSION['codigo'];
+                                                                                                  $_SESSION['codigo']== "---";
+                                                                                                } ?>" name="codigo">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="cpf">Cpf</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Cpf" name="cpf" value="<?php echo $_SESSION['cpf']; $_SESSION['cpf']== "---"; ?>">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="quantidade">Quantidade</label>
+                  <input type="number" class="form-control" id="quantidade" placeholder="quantidade" name="quantidade">
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="cpf">Descrição</label>
+                <input type="text" class="form-control" id="descricao" placeholder="Descrição" name="descricao" value="<?php if (!$_SESSION['desc'] == "") {
+                                                                                                                          echo $_SESSION['desc'];
+                                                                                                                          $_SESSION['desc']== "---";
+                                                                                                                        } ?>">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="quantidade">Observação</label>
+                <input type="textarea" class="form-control" id="quantidade" placeholder="obervação do propduto" name="observacao" style="height:100px;">
+              </div>
+              <div class="container">
+                <button type="submit" class="btn btn-primary" name="inserirDem" id="inserirDem" >>Cadastrar</button>
+              </div>
+            </div>
+        </div>
+        <hr>
+        </form>
         </nav>
-</div>
-<div class="col col-sm-11 bg-primary">
-<div class="mainp container shadow p-3 mb-5 bg-primary rounded">
-  <div class="cabeP container">
-  <div class="cabecalho card card-body shadow p-3 mb-5 bg-white rounded">
-   Demandas
-  </div>
-  </div>
-<div class="corpo card card-body">
-
-<form method="POST" action="inserir.php">
-
-<div class="form-row">
-<div class="form-group col-md-4">
-    <label for="inputEstado">Codigo</label>
-    <select id="inputEstado" class="form-control">
-      <option selected>Escolher...</option>
-      <option name="setor">...</option>
-    </select>
-  </div>
-  <div class="form-group col-md-4">
-    <label for="inputEstado">Nome</label>
-    <select id="inputEstado" class="form-control">
-      <option selected>Escolher...</option>
-      <option name="setor">...</option>
-    </select>
-  </div>
-  <div class="form-group col-md-4">
-    <label for="inputEstado">Setor</label>
-    <select id="inputEstado" class="form-control">
-      <option selected>Escolher...</option>
-      <option name="setor">...</option>
-    </select>
-  </div>
-  <div class="form-group col-md-4">
-    <label for="inputEstado">Produto</label>
-    <select id="inputEstado" class="form-control">
-      <option selected>Escolher...</option>
-      <option name="setor">...</option>
-    </select>
-  </div>
-  <div class="form-row">
-  <div class="form-group col-md-4">
-      <label for="quantidade">Quantidade</label>
-      <input type="number" class="form-control" id="quantidade" placeholder="quantidade" name="quantidade">
+      </div>
+      <!--container do main-->
     </div>
-    <div class="form-group col-md-4">
-      <label for="descricao">Produto</label>
-      <input type="text" class="form-control" id="produto" placeholder="Descricão.." name="produto">
-    </div>
-    <div class="form-group col-sm-6">
-      <label for="quantidade">Observação</label>
-      <input type="textarea" class="form-control" id="quantidade" placeholder="obervação do propduto" name="quantidade" style="height:100px;">
-    </div>
-    
   </div>
-</div>
-<hr>
-
-
-<div class="container">
-  <button type="submit" class="btn btn-primary">cadastrar</button>
+  <!--fim da segudna col-->
   </div>
-
-  
-</form>
-
-  
-</nav>
-</div><!--container do main-->
-</div>
-</div><!--fim da segudna col-->
-</div>  
-
-<div class="container-fluid" style="background:#212121;text-align:center;">
-  <footer>
-    <span style="color:white;"> comixão e gozadinha produções</span>
-</footer>
-</div>
-
+  <div class="container-fluid" style="background:#212121;text-align:center;">
+    <footer>
+      <span style="color:white;"> comixão e gozadinha produções</span>
+    </footer>
+  </div>
 </body>
+<script type="text/javascript">
+  btnproduto.addEventListener("change", function() {
+    let opcao = document.getElementById("btnproduto").value;
+    let usuario = document.getElementById("btnusuario").value;
+    window.location.href = "repository/conMaterial.php?preencherMat&id=" + opcao;
+  });
+
+  btnusuario.addEventListener("change", function() {
+    let usuario = document.getElementById("btnusuario").value;
+    let opcao = document.getElementById("btnproduto").value;
+    window.location.href = "repository/conUsuario.php?preencherUser&id=" + usuario;
+  });
+
+  inserirDem.addEventListener("change", function() {
+    let usuario = document.getElementById("inserirDem").value;
+    window.location.href = "repository/conDemandas.php?inserirDem";
+  });
+</script>
+
 </html>
