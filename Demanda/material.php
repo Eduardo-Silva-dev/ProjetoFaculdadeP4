@@ -16,7 +16,7 @@
   <script type="text/javascript" src="jquery/messages_pt_BR.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#formcadastro").validate({
+      $("#formMat").validate({
         rules: {
           codigo: {
             required: true,
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="corpo card card-body">
-                    <form method="POST" action="material.php">
+                    <form id="formMat" method="POST" action="material.php">
 
                         <div class="form-row">
                             <div class="form-group col-md-6">

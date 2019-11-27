@@ -13,11 +13,96 @@
 </head>
 
 <body>
-<?php $mat = matSelect();
-var_dump($mat); ?>
-    <div class="modalP container-fluid">
+<nav class="main-menu"> <!-- Início do menu lateral -->
+        <ul>
+          <li>
+            <a href="../index.php">
+              <i class="fa fa-home fa-2x"></i>
+              <span class="nav-text">
+                Dashboard
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="../usuario.php">
+              <i class="fa fa-laptop fa-2x"></i>
+              <span class="nav-text">
+                cadastro de Usuarios
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="../material.php">
+              <i class="fa fa-list fa-2x"></i>
+              <span class="nav-text">
+                Cadastro de Produtos
+              </span>
+            </a>
+          </li>
+          <li class="has-subnav">
+            <a href="../demandas.php">
+              <i class="fa fa-folder-open fa-2x"></i>
+              <span class="nav-text">
+                Demandas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../relatorios/usuarios.php">
+              <i class="fa fa-bar-chart-o fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Usuarios
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../relatorios/produtos.php">
+              <i class="fa fa-font fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Produtos
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../relatorios/demanda.php">
+              <i class="fa fa-table fa-2x"></i>
+              <span class="nav-text">
+                Relatorio de Demandas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../confi/solicitacao.php">
+              <i class="fa fa-map-marker fa-2x"></i>
+              <span class="nav-text">
+                Solicitações
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="../confi/suporte.php">
+              <i class="fa fa-info fa-2x"></i>
+              <span class="nav-text">
+                Suporte
+              </span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout">
+          <li>
+            <a href="../login.php">
+              <i class="fa fa-power-off fa-2x"></i>
+              <span class="nav-text">
+                Logout
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+<?php $mat = materialSelect();?>
+    <div class="modalP container-fluid" style="background-color: #007bff;"> <!-- Cor do fundo -->
         <div class="modalUs card card-body">
-            <form method="POST" action="">
+            <form method="POST" action="../repository/conMaterial.php?id=<?php echo $user['id'] ?>">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="produto">produto</label>
@@ -49,7 +134,7 @@ var_dump($mat); ?>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success" name="alterarMat" >salvar</button>
-                <button type="submit" class="btn btn-primary">Sair</button>
+                <a href="produtos.php" class="btn btn-danger"  type="submit" >Sair</a>   
             </form>
         </div>
     </div>

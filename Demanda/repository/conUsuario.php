@@ -59,8 +59,8 @@ function userSelect()
 {
     require '../conexao/conexao.php';
     if (isset($_GET['id'])) {
-        $usu_cpf = intval($_GET['id']);
-        $sql_cpf = "SELECT * FROM tb_usuario WHERE id = '$usu_cpf'";
+        $usu_id = intval($_GET['id']);
+        $sql_cpf = "SELECT * FROM tb_usuario WHERE id = '$usu_id'";
         $sql_query = $con->query($sql_cpf) or die($con->errno);
         $linha = $sql_query->fetch_assoc();
         return $linha;
@@ -70,26 +70,26 @@ function userSelect()
 function useSelect()
 {
     require '../conexao/conexao.php';
-    if (isset($_GET['id'])) {
-        session_start();
-        $usu_id = intval($_GET['id']);
-        if ($usu_id == 0) {
-            $_SESSION['cpf'] = "---";
-            $_SESSION['setor'] = "---";
-            $_SESSION['useid'] = "---";
+    session_start();
+    $nome = $_GET['name'];
+    if ($nome == "") {
+        $_SESSION['cpf'] = "---";
+        $_SESSION['setor'] = "---";
+        $_SESSION['nome'] = "---";
+        header("Location: " . $_SERVER['HTTP_REFERER'] . "");
+    } else {
+        $sql = "SELECT * FROM tb_usuario WHERE nome = '$nome'";
+        $sql_query = $con->query($sql) or die($con->errno);
+        $linha = $sql_query->fetch_assoc();
+        var_dump($linha);
+        if ($linha) {
+            $_SESSION['cpf'] = $linha['cpf'];
+            $_SESSION['setor'] = $linha['setor'];
+            $_SESSION['nome'] = $linha['nome'];
+            $_SESSION['useid'] = $linha['id'];
             header("Location: " . $_SERVER['HTTP_REFERER'] . "");
         } else {
-            $sql_id = "SELECT * FROM tb_usuario WHERE id = '$usu_id'";
-            $sql_query = $con->query($sql_id) or die($con->errno);
-            $linha = $sql_query->fetch_assoc();
-            if ($linha) {
-                $_SESSION['cpf'] = $linha['cpf'];
-                $_SESSION['setor'] = $linha['setor'];
-                $_SESSION['useid'] = $linha['id'];
-                header("Location: " . $_SERVER['HTTP_REFERER'] . "");
-            } else {
-                echo "$con->errno";
-            }
+            echo "$con->errno";
         }
     }
 }
@@ -125,13 +125,7 @@ function alterarUser()
         $confimar = $con->query($sql) or die($con->error);
 
         if ($confimar) {
-            unset($_SESSION[nome],
-            $_SESSION[sobrenome],
-            $_SESSION[email],
-            $_SESSION[senha],
-            $_SESSION[cpf],
-            $_SESSION[setor],
-            $_SESSION[niveldeacesso]);
+            unset($_SESSION);
             header("Location: ../relatorios/usuarios.php");
         } else { }
         mysqli_close($con);

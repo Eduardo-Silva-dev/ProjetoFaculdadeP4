@@ -34,10 +34,6 @@
                 <label for="psw">Senha</label>
                 <input type="password" class="form-control" id="psw" placeholder="Senha" name="senha">
               </div>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="lembrar">
-                <label class="form-check-label" for="lembrar">lembrar senha</label>
-              </div>
               <a name="recuperarSenha" href="recuperarSenha.php" class="btn btn-success"  type="submit" >Esuqeci minha Senha</a>
               <input id="" class="btn btn-primary" type="submit" value="entrar" name="confirmar"<?php validarUser(); ?>>
             </form>

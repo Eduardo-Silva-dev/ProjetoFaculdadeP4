@@ -1,9 +1,7 @@
 <?php
 function inserirDem(){
-    echo "testeqwqwq";
     include 'conexao/conexao.php';
     if (isset($_POST['inserirDem'])) {
-    echo "teste";
         foreach ($_POST as $chave => $valor)
             $_SESSION[$chave] = mysqli_real_escape_string($con, $valor);
 
@@ -33,29 +31,27 @@ function inserirDem(){
             '$Andamento'
             )";
         $confimar = $con->query($sql) or die($con->error);
-        if ($confimar) {
-            unset($_SESSION);
-            limparSession();
+        $_SESSION['cpf'] = "---";
+        $_SESSION['setor'] = "---";
+        $_SESSION['useid'] = "---";
+        $_SESSION['codigo'] = "---";
+        $_SESSION['desc'] = "---";
+        $_SESSION['matid'] = "---";
+        $_SESSION['useid'] = "---";
+        if ($confimar) { 
+              unset($_SESSION);
+              
         } else {
             $erro[] = $confirmar;
-            echo "<script> alert('$erro') </srcipt>";
+            echo '<script> alert('.$erro.') </srcipt>';
         }
         mysqli_close($con);
     }
 }
 
-function limparSession(){
-    $_SESSION['cpf'] = "---";
-    $_SESSION['setor'] = "---";
-    $_SESSION['useid'] = "---";
-    $_SESSION['codigo'] = "---";
-    $_SESSION['desc'] = "---";
-    $_SESSION['matid'] = "---";
-}
-
 function selectDem(){
     include '../conexao/conexao.php';
-    $sql = "SELECT id,nomeuser,setor,produto,quantidade,observacao,statusdem, DATE_FORMAT(datadesaida, '%d/%m/%Y') AS datadesaida FROM tb_demanda  ORDER BY tb_demanda.datadesaida DESC ,tb_demanda.statusdem DESC ";
+    $sql = "SELECT id,nomeuser,setor,produto,quantidade,descricao,statusdem, DATE_FORMAT(datadesaida, '%d/%m/%Y') AS datadesaida FROM tb_demanda  ORDER BY tb_demanda.datadesaida DESC ,tb_demanda.statusdem DESC ";
     $resposta = $con->query($sql) or die ($con->errno);
     return $resposta;
     mysqli_close($con);
@@ -85,7 +81,11 @@ if (isset($_GET['concluirDem'])) {
 }
 
 if (isset($_GET['inserirDem'])) {
-    echo "das";
     inserirDem();
 }
+
+if (isset($_GET['limparSession'])) {
+    limparSession();
+}
+
 ?>

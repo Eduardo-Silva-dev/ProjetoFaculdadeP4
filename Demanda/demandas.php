@@ -16,7 +16,46 @@ session_start();
   <link rel="stylesheet" type="text/css" href="styles\menu.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="styles\relatorioUsu.css" media="screen" />
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-
+  <script type="text/javascript" src="jquery/jquery.js"></script>
+  <script type="text/javascript" src="jquery/additional-methods.min..js"></script>
+  <script type="text/javascript" src="jquery/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="jquery/messages_pt_BR.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#formDem").validate({
+        rules: {
+          nomeUser: {
+            required: true
+          },
+          produto: {
+            required: true
+          },
+          setor: {
+            required: true
+          },
+          codigo: {
+            required: true
+          },
+          descricao: {
+            required: true
+          },
+          observacao: {
+            required: true
+          },
+          cpf: {
+            required: true
+          },
+          quantidade: {
+            required: true
+          }
+        },
+        submitHandler: function(form) {
+          form.submit()
+          <?php inserirUser(); ?>
+        }
+      })
+    })
+  </script>
 </head>
 
 <body onload="document.querySelector('.modalP').style.display='none'">
@@ -117,51 +156,49 @@ session_start();
           </div>
         </div>
         <div class="corpo card card-body">
-          <form method="POST" action="repository/conDemandas.php">
+          <form id="formDem" method="POST" action="demandas.php">
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label name="produto" for="produto">Produto</label>
-                <select name="produto" id="btnproduto" onchange="(this.value)" class="form-control">
-                  <option selected>Escolher...</option>
+                <select name="produto" id="btnproduto" class="form-control">
+                <option id="escolher" value=0>Escolher...</option>
                   <?php $mat = selectMat();
                   while ($linhas = $mat->fetch_assoc()) {
                     if ($linhas['id'] == $_SESSION['matid']) {
-                      echo ' <option name="produto" selected id="opcao" value =' . $linhas['id'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
-                     }else{
-                      echo ' <option name="produto" id="opcao" value =' . $linhas['id'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
+                      echo ' <option name="produto" selected id="opcao" value =' . $linhas['nomedoproduto'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
+                    } else {
+                      echo ' <option name="produto" id="opcao" value =' . $linhas['nomedoproduto'] . '>' . $linhas['nomedoproduto'] . ' </option> ';
                     }
-                 } ?>
+                  }
+                   ?>
                 </select>
               </div>
               <div class="form-group col-md-4">
                 <label for="nomeUser">Nome</label>
                 <select name="nomeUser" id="btnusuario" class="form-control">
-                  <option selected>Escolher...</option>
+                <option id="escolhe" value=0>Escolher...</option>
                   <?php $user = mostraUse();
                   while ($linha = $user->fetch_assoc()) {
                     if ($linha['id'] == $_SESSION['useid']) {
-                    echo ' <option name="nomeUser" selected value =' . $linha['id'] . '>' . $linha['nome'] . ' </option> ';
-                  }else{
-                    echo ' <option name="nomeUser" value =' . $linha['id'] . '>' . $linha['nome'] . ' </option> ';
-                  }
+                      echo ' <option name="nomeUser" selected value =' . $linha['nome'] . '>' . $linha['nome'] . ' </option> ';
+                    } else {
+                      echo ' <option name="nomeUser" value =' . $linha['nome'] . '>' . $linha['nome'] . ' </option> ';
+                    }
                   }
                   ?>
                 </select>
               </div>
               <div class="form-group col-md-4">
                 <label name="setor" for="setor">Setor</label>
-                <input type="text" class="form-control" id="setor" placeholder="Setor" name="setor" value="<?php if (!$_SESSION['setor'] == "") {echo $_SESSION['setor']; $_SESSION['setor']== "---";} ?>">
+                <input type="text" class="form-control" id="setor" placeholder="Setor" name="setor" value="<?php if (!$_SESSION['setor'] == "") {echo $_SESSION['setor'];} ?>">
               </div>
               <div class="form-group col-md-4">
                 <label for="codigo">Codigo</label>
-                <input type="text" class="form-control" id="codigo" placeholder="Codigo" value="<?php if (!$_SESSION['codigo'] == "") {
-                                                                                                  echo $_SESSION['codigo'];
-                                                                                                  $_SESSION['codigo']== "---";
-                                                                                                } ?>" name="codigo">
+                <input type="text" class="form-control" id="codigo" placeholder="Codigo" value="<?php if (!$_SESSION['codigo'] == "") {echo $_SESSION['codigo'];} ?>" name="codigo">
               </div>
               <div class="form-group col-md-4">
                 <label for="cpf">Cpf</label>
-                <input type="text" class="form-control" id="cpf" placeholder="Cpf" name="cpf" value="<?php echo $_SESSION['cpf']; $_SESSION['cpf']== "---"; ?>">
+                <input type="text" class="form-control" id="cpf" placeholder="Cpf" name="cpf" value="<?php if (!$_SESSION['desc'] == "") { echo $_SESSION['cpf'];} ?>">
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -170,18 +207,15 @@ session_start();
                 </div>
               </div>
               <div class="form-group col-md-4">
-                <label for="cpf">Descrição</label>
-                <input type="text" class="form-control" id="descricao" placeholder="Descrição" name="descricao" value="<?php if (!$_SESSION['desc'] == "") {
-                                                                                                                          echo $_SESSION['desc'];
-                                                                                                                          $_SESSION['desc']== "---";
-                                                                                                                        } ?>">
+                <label for="descricao">Descrição</label>
+                <input type="text" class="form-control" id="descricao" placeholder="Descrição" name="descricao" value="<?php if (!$_SESSION['desc'] == "") { echo $_SESSION['desc'];} ?>">
               </div>
               <div class="form-group col-sm-6">
-                <label for="quantidade">Observação</label>
-                <input type="textarea" class="form-control" id="quantidade" placeholder="obervação do propduto" name="observacao" style="height:100px;">
+                <label for="observacao">Observação</label>
+                <input type="textarea" class="form-control" id="observacao" placeholder="obervação do propduto" name="observacao" style="height:100px;">
               </div>
               <div class="container">
-                <button type="submit" class="btn btn-primary" name="inserirDem" id="inserirDem" >>Cadastrar</button>
+                <button type="submit" class="btn btn-primary" id="Deminserir" name="inserirDem" <?php inserirDem();?>>Cadastrar</button>
               </div>
             </div>
         </div>
@@ -204,19 +238,26 @@ session_start();
   btnproduto.addEventListener("change", function() {
     let opcao = document.getElementById("btnproduto").value;
     let usuario = document.getElementById("btnusuario").value;
-    window.location.href = "repository/conMaterial.php?preencherMat&id=" + opcao;
+
+    if (opcao == 0) {
+      let codigo = document.getElementById("codigo").value="---";
+      let desc = document.getElementById("descricao").value="---";
+    } else {
+      window.location.href = "repository/conMaterial.php?preencherMat&name=" + opcao;
+    }
   });
 
   btnusuario.addEventListener("change", function() {
     let usuario = document.getElementById("btnusuario").value;
     let opcao = document.getElementById("btnproduto").value;
-    window.location.href = "repository/conUsuario.php?preencherUser&id=" + usuario;
+    if (usuario == 0) {
+      let setor = document.getElementById("setor").value="---";
+      let cpf = document.getElementById("cpf").value="---";
+    } else {
+      window.location.href = "repository/conUsuario.php?preencherUser&name=" + usuario;
+    }
   });
 
-  inserirDem.addEventListener("change", function() {
-    let usuario = document.getElementById("inserirDem").value;
-    window.location.href = "repository/conDemandas.php?inserirDem";
-  });
 </script>
 
 </html>

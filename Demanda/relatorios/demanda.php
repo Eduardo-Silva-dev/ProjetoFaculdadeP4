@@ -148,7 +148,7 @@
                   <td><?php echo $linha['nomeuser']; ?>
                   <td><?php echo $linha['produto']; ?>
                   <td><?php echo $linha['quantidade']; ?>
-                  <td><?php echo $linha['observacao']; ?>
+                  <td><?php echo $linha['descricao']; ?>
                   <td><?php if ($linha['datadesaida'] === "") { } else {
                           echo $linha['datadesaida'];
                         } ?>

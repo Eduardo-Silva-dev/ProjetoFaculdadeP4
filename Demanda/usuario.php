@@ -17,7 +17,6 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#formcadastro").validate({
-        
         rules: {
           nome: {
             required: true,
@@ -42,12 +41,6 @@
             required: true,
             minlength: 11,
             maxlength: 11
-          },
-          setor: {
-            required: true
-          },
-          niveldeacesso: {
-            required: true
           }
         },
         submitHandler: function(form) {

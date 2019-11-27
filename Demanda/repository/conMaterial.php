@@ -61,20 +61,32 @@ function deleteMat()
     }
 }
 
+
+function materialSelect()
+{
+    require '../conexao/conexao.php';
+    if (isset($_GET['id'])) {
+        $mat_id = intval($_GET['id']);
+        $sql_cpf = "SELECT * FROM tb_material WHERE id = '$mat_id'";
+        $sql_query = $con->query($sql_cpf) or die($con->errno);
+        $linha = $sql_query->fetch_assoc();
+        return $linha;
+    }
+}
+
 function matSelect()
 {
     include '../conexao/conexao.php';
-    if (isset($_GET['id'])) {
+    if (isset($_GET['name'])) {
         session_start();
-        $id_mat = intval($_GET['id']);
-        if ($id_mat == 0) { 
-            
+        $nomedoproduto = $_GET['name'];
+        if ($nomedoproduto == "") { 
             $_SESSION['codigo'] = "---";
             $_SESSION['desc'] = "---";
             $_SESSION['matid'] = "---";
             header("Location: " . $_SERVER['HTTP_REFERER'] . "");
         } else {
-            $sql_cpf = "SELECT * FROM tb_material WHERE id = '$id_mat'";
+            $sql_cpf = "SELECT * FROM tb_material WHERE nomedoproduto = '$nomedoproduto'";
             $sql_query = $con->query($sql_cpf) or die($con->errno);
             $linha = $sql_query->fetch_assoc();
             if ($linha) {
