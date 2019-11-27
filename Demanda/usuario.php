@@ -17,7 +17,7 @@ protect(); ?>
   <script type="text/javascript" src="jquery/jquery.validate.min.js"></script>
   <script type="text/javascript" src="jquery/messages_pt_BR.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    $(function() {
       $("#formcadastro").validate({
         rules: {
           nome: {
@@ -30,9 +30,18 @@ protect(); ?>
             maxlength: 100,
             minlength: 5
           },
-          email: {
+          email:{
             required: true,
-            email: true
+                  email: true,
+                  remote: {
+                    url: "repository/verificarEmail.php",
+                    type: "post",
+                    data: {
+                      email: function() {
+                        return $("#email").val();
+                      }
+                    }
+                  }
           },
           senha: {
             required: true,
@@ -45,9 +54,14 @@ protect(); ?>
             maxlength: 11
           }
         },
+        messages : {
+          email : {
+                    required : "É necessário informar um login.",
+                    remote : "Esse login já está em uso."
+                }
+        },
         submitHandler: function(form) {
           form.submit()
-          <?php inserirUser(); ?>
         }
       })
     })
@@ -192,8 +206,8 @@ protect(); ?>
                 </select>
               </div>
               <div class="form-group col-md-6">
-              <div class="container">  
-                <label>Nivel de Acesso : </label>
+                <div class="container">
+                  <label>Nivel de Acesso : </label>
                   <label>Alto</label>
                   <input type="radio" value="1" name="niveldeacesso">
                   <label>Medio</label>
@@ -211,7 +225,7 @@ protect(); ?>
                 </label>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary" name="confirmar">cadastrar</button>
+            <button type="submit" class="btn btn-primary" name="confirmar"  <?php inserirUser(); ?>>cadastrar</button>
           </form>
           </ul>
           </nav>

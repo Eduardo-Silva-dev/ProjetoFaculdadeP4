@@ -1,4 +1,4 @@
-<?php include 'repository/protect.php';
+<?php require 'repository/protect.php';
 protect(); ?> 
 <!DOCTYPE html>
 <html lang="PT-BR">

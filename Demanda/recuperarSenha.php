@@ -1,6 +1,4 @@
-<?php include 'repository/validacaoLogin.php'; 
-require 'repository/protect.php';
-protect();?>
+<?php include 'repository/validacaoLogin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

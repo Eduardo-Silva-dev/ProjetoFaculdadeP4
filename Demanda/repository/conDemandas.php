@@ -39,8 +39,7 @@ function inserirDem(){
         $_SESSION['matid'] = "---";
         $_SESSION['useid'] = "---";
         if ($confimar) { 
-              unset($_SESSION);
-              
+            session_destroy();    
         } else {
             $erro[] = $confirmar;
             echo '<script> alert('.$erro.') </srcipt>';

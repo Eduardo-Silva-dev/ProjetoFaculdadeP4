@@ -4,7 +4,7 @@ require_once 'repository/conMaterial.php';
 require_once 'repository/conUsuario.php';
 require 'repository/protect.php';
 protect();
-session_start();
+if(isset($_SESSION)){ }else{session_start();}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,6 @@ session_start();
         },
         submitHandler: function(form) {
           form.submit()
-          <?php inserirUser(); ?>
         }
       })
     })
