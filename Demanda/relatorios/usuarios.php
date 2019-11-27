@@ -1,6 +1,8 @@
 <?php 
   include '../repository/conUsuario.php';
   include '../conexao/conexao.php';
+  require '../repository/protect.php';
+protect();
   $itens_por_pagina = 2;
   if(isset($_GET['pagina'])){
   $pagina = intval($_GET['pagina']);}else{

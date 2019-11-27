@@ -2,6 +2,8 @@
 require_once 'repository/conDemandas.php';
 require_once 'repository/conMaterial.php';
 require_once 'repository/conUsuario.php';
+require 'repository/protect.php';
+protect();
 session_start();
 ?>
 <!DOCTYPE html>

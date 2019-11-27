@@ -1,4 +1,6 @@
-<?php include 'repository/conUsuario.php'; ?>
+<?php include 'repository/conUsuario.php';
+require 'repository/protect.php';
+protect(); ?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,4 +1,6 @@
-<?php include '../repository/conMaterial.php'; ?>
+<?php include '../repository/conMaterial.php';
+require '../repository/protect.php';
+protect(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
